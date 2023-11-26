@@ -8,8 +8,8 @@ import java.io.Serializable;
 @Table(name = "Categoria")
 public class Categoria implements Serializable {
 
-    public Categoria(Long id_categoria, String descripcion) {
-        this.id_categoria = id_categoria;
+    public Categoria(Long id, String descripcion) {
+        this.id_categoria = id;
         this.descripcion = descripcion;
     }
     public Categoria() {}

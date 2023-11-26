@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Table(name = "orden")
 public class Orden implements Serializable {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id_orden", unique = true)
     private Long id_orden;
 
@@ -23,19 +24,19 @@ public class Orden implements Serializable {
     private String estado;
 
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "cliente")
+    @JoinColumn(name = "cliente", referencedColumnName = "dni", nullable = false)
     private Cliente cliente;
 
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "tecnico")
-    private Tecnico tecnico;
-
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "categoria")
+    @JoinColumn(name = "categoria", nullable = false)
     private Categoria categoria;
 
-    public Orden(Long id, String descripcion, Long costo, String fecha, String estado, Cliente cliente, Categoria categoria, Tecnico tecnico) {
-        this.id_orden = id;
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "tecnico", referencedColumnName = "id_tecnico", nullable = false)
+    private Tecnico tecnico;
+
+    public Orden(String descripcion, Long costo, String fecha, String estado, Cliente cliente, Categoria categoria, Tecnico tecnico) {
+        //this.id_orden = id;
         this.descripcion = descripcion;
         this.costo = costo;
         this.fecha_orden = fecha;
@@ -72,4 +73,8 @@ public class Orden implements Serializable {
     public void setEstado(String estado) {this.estado = estado;}
     public Long getCosto() {return costo;}
     public void setCosto(Long costo) {this.costo = costo;}
+
+    public String getDescripcion() {return descripcion;}
+
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 }

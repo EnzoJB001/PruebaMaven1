@@ -13,6 +13,9 @@ public class Tecnico implements Serializable {
     @Column(name = "nombreApellido", nullable = false)
     private String nombreApellido;
 
+    public Tecnico() {}
+
+    public Tecnico(Long id) {this.id_tecnico = id;}
     public Long getId_tecnico() {return id_tecnico;}
     public String getNombreApellido() {return nombreApellido;}
     public void setNombreApellido(String nombreApellido) {this.nombreApellido = nombreApellido;}
