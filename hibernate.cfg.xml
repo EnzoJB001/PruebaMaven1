@@ -7,7 +7,7 @@
     
     <session-factory>
         <!-- Database connection settings -->
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/facturacion</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
@@ -28,10 +28,12 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto"></property>
+        <property name="hbm2ddl.auto"/>
 
-        <mapping class="com.mycompany.pruebamaven1.Factura" />
+        <mapping class="com.mycompany.pruebamaven1.Orden" />
         <mapping class="com.mycompany.pruebamaven1.Cliente" />
+        <mapping class="com.mycompany.pruebamaven1.Tecnico" />
+        <mapping class="com.mycompany.pruebamaven1.Categoria" />
     </session-factory>
 
 </hibernate-configuration>

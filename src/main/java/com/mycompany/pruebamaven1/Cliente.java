@@ -13,21 +13,27 @@ import javax.persistence.Table;
 // Defines the name of the table created for the entity
 @Table(name = "Cliente")
 public class Cliente implements Serializable {
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "cod_cliente", unique = true)
-	private int cod_cliente;
-	
-	@Column(name = "nombre_cliente", nullable = false)
-    private String nombre_cliente;
-
-    public int getCod_cliente() {
-        return cod_cliente;
+    public Cliente(Long dni, String nombre_cliente) {
+        this.dni = dni;
+        this.nombre_cliente = nombre_cliente;
     }
 
-    public void setCod_cliente(int cod_cliente) {
-        this.cod_cliente = cod_cliente;
+    public Cliente(){}
+
+    @Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "dni", unique = true)
+	private Long dni;
+	
+	@Column(name = "nombre", nullable = false)
+    private String nombre_cliente;
+
+    public Long getDni() {
+        return dni;
+    }
+
+    public void setDni(Long cod_cliente) {
+        this.dni = dni;
     }
 
     public String getNombre_cliente() {
