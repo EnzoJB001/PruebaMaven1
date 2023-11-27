@@ -3,6 +3,7 @@ package com.mycompany.pruebamaven1;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     private static void ordenesPorFecha(String fechaMin, String fechaMax) {
@@ -21,7 +22,7 @@ public class Main {
         System.out.println("\nFinalizado\n");
     }
 
-    private static void insertarFactura(String descripcion, Long costo, String fecha, String estado, Cliente cliente, Long id_categoria, Long id_tecnico) {
+    private static void crearOrden(String descripcion, Long costo, String fecha, String estado, Cliente cliente, Long id_categoria, Long id_tecnico) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Categoria categoria = session.createQuery("Select a from Categoria a where id_categoria='" + id_categoria + "'", Categoria.class).list().get(0);
@@ -40,15 +41,24 @@ public class Main {
             cliente = session.createQuery("Select a from Cliente a where dni='" + dni + "'", Cliente.class).list().get(0);
         }
         catch (Exception e){
-            cliente = new Cliente(dni, "Nombre", "Direccion", "Mail");
+            Scanner in = new Scanner(System.in);
+            System.out.println("Por favor ingrese nombre y apellido:");
+            String nombre = in.nextLine();
+            System.out.println("Por favor ingrese su direccion:");
+            String direccion = in.nextLine();
+            System.out.println("Por favor ingrese email:");
+            String mail = in.nextLine();
+            cliente = new Cliente(dni, nombre, direccion, mail);
         }
         session.getTransaction().commit();
+        System.out.println(cliente.getNombre_cliente());
         return cliente;
+        
     }
 
     public static void main(String[] args) {
-        ordenesPorFecha("1900/10/19", "2010/10/21");
-        insertarFactura("Gameboy sin pilas", 5000L, "1999/12/31", "Terminado", validarCliente(2L), 2L, 2L);
-        HibernateUtil.getSessionFactory().close();
+        ordenesPorFecha("1900/10/19", "2012/10/21");
+        crearOrden("Mouse con cable cortado", 7000L, "2011/1/21", "Terminado", validarCliente(17044067L), 1L, 1L);
+        HibernateUtil.getSessionFactory().close();        
     }
 }
