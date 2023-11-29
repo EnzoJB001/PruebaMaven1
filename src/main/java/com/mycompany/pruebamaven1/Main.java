@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static void ordenesPorFecha(String fechaMin, String fechaMax) {
+    private void ordenesPorFecha(String fechaMin, String fechaMax) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List<Orden> result = session.createQuery("select a from Orden a", Orden.class).stream().filter(fecha -> fecha.getFecha_orden().compareTo(fechaMax) <= 0 && fecha.getFecha_orden().compareTo(fechaMin) >= 0).toList();
@@ -22,7 +22,7 @@ public class Main {
         System.out.println("\nFinalizado\n");
     }
 
-    private static void crearOrden(String descripcion, Long costo, String fecha, String estado, Cliente cliente, Long id_categoria, Long id_tecnico) {
+    private void crearOrden(String descripcion, Long costo, String fecha, String estado, Cliente cliente, Long id_categoria, Long id_tecnico) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Categoria categoria = session.createQuery("Select a from Categoria a where id_categoria='" + id_categoria + "'", Categoria.class).list().get(0);
@@ -33,7 +33,7 @@ public class Main {
         session.getTransaction().commit();
     }
 
-    private static Cliente validarCliente(Long dni){
+    private Cliente validarCliente(Long dni){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Cliente cliente;
@@ -57,8 +57,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        ordenesPorFecha("1900/10/19", "2012/10/21");
-        crearOrden("Mouse con cable cortado", 7000L, "2011/1/21", "Terminado", validarCliente(17044067L), 1L, 1L);
+        Main main = new Main();
+        main.ordenesPorFecha("1900/10/19", "2012/10/21");
+        main.crearOrden("Monitor no funciona a 144hz", 7000L, "2011/1/21", "Terminado", main.validarCliente(44978481L), 1L, 1L);
         HibernateUtil.getSessionFactory().close();        
     }
 }
