@@ -4,6 +4,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Main {
     private void ordenesPorFecha(String fechaMin, String fechaMax) {
@@ -16,7 +17,7 @@ public class Main {
         }
         else{
             for (Orden evento : result) {
-                System.out.printf("\nFactura N°%s\nCliente: %s\nTécnico: %s\nFecha: %s\n", evento.getId_orden() , evento.getCliente().getNombre_cliente(), evento.getTecnico().getNombreApellido(), evento.getFecha_orden());
+                System.out.printf("\nFactura N°%s\nCliente: %s\nTécnico: %s\nCategoria: %s\nFecha: %s\n", evento.getId_orden() , evento.getCliente().getNombre_cliente(), evento.getTecnico().getNombreApellido(),evento.getCategoria().getDescripcion(), evento.getFecha_orden());
             }
         }
         System.out.println("\nFinalizado\n");
@@ -29,7 +30,7 @@ public class Main {
         Tecnico tecnico = session.createQuery("Select a from Tecnico a where id_tecnico='" + id_tecnico + "'", Tecnico.class).list().get(0);
         Orden orden = new Orden(descripcion, costo, fecha, estado, cliente, categoria, tecnico);
         session.saveOrUpdate(orden);
-        System.out.printf("\nFactura N°%s\nCliente: %s\nTécnico: %s\nFecha: %s\n\n", orden.getId_orden() , orden.getCliente().getNombre_cliente(), orden.getTecnico().getNombreApellido(), orden.getFecha_orden());
+        System.out.printf("\nFactura N°%s\nCliente: %s\nTécnico: %s\nCategoria: %s\nFecha: %s\n", orden.getId_orden() , orden.getCliente().getNombre_cliente(), orden.getTecnico().getNombreApellido(),orden.getCategoria().getDescripcion(), orden.getFecha_orden());
         session.getTransaction().commit();
     }
 
@@ -60,6 +61,7 @@ public class Main {
         Main main = new Main();
         main.ordenesPorFecha("1900/10/19", "2012/10/21");
         main.crearOrden("Monitor no funciona a 144hz", 7000L, "2011/1/21", "Terminado", main.validarCliente(44978481L), 1L, 1L);
-        HibernateUtil.getSessionFactory().close();        
+        HibernateUtil.getSessionFactory().close();
+        JOptionPane.showInternalMessageDialog(null, "Nunca nada en la vida te va a frustrar tanto ni te va a hacer feliz tanto como la programacion... en la misma hora :D", "Para futuros programadores", 1);
     }
 }
