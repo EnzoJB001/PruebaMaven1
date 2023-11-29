@@ -60,8 +60,8 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         main.ordenesPorFecha("1900/10/19", "2012/10/21");
-        main.crearOrden("Monitor no funciona a 144hz", 7000L, "2011/1/21", "Terminado", main.validarCliente(44978481L), 1L, 1L);
+        main.crearOrden("Mic no reproduce audio de monitoreo", 9500L, "2013/4/21", "Terminado", main.validarCliente(12312344L), 1L, 1L);
         HibernateUtil.getSessionFactory().close();
-        JOptionPane.showInternalMessageDialog(null, "Nunca nada en la vida te va a frustrar tanto ni te va a hacer feliz tanto como la programacion... en la misma hora :D", "Para futuros programadores", 1);
+//        JOptionPane.showInternalMessageDialog(null, "Nunca nada en la vida te va a frustrar tanto ni te va a hacer feliz tanto como la programacion... en la misma hora :D", "Para futuros programadores", 1);
     }
 }
